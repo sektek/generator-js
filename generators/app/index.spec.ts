@@ -11,14 +11,26 @@ const __dirname = dirname(__filename);
 const generator = join(__dirname, 'index.js');
 
 // AppGenerator's compose chain reaches two levels deep: app -> @sektek/base:app
-// -> editorconfig/gitconfig/readme, and app -> eslint -> prettier. The shared
-// test helper has nothing registered under any of these namespaces by
-// default, so every namespace actually reached anywhere in the chain must be
-// registered by path (registering by class reference instead would break
-// templatePath()/sourceRoot() resolution for whichever generator it's used on).
-// Resolved via @sektek/generator-base's own package exports (an installed
-// npm dependency, not a monorepo sibling directory) rather than a relative
-// path, since this package no longer lives next to generator-base on disk.
+// -> editorconfig/git/gitconfig/github/readme/devcontainer, and app -> eslint
+// -> prettier. The shared test helper has nothing registered under any of
+// these namespaces by default, so every namespace actually reached anywhere
+// in the chain must be registered by path (registering by class reference
+// instead would break templatePath()/sourceRoot() resolution for whichever
+// generator it's used on). Resolved via @sektek/generator-base's own package
+// exports (an installed npm dependency, not a monorepo sibling directory)
+// rather than a relative path, since this package no longer lives next to
+// generator-base on disk.
+//
+// gitInit: false in run()'s default options — these tests are about
+// composition (each sub-generator produces its expected files), not git's
+// own behavior (already covered by its own fully-mocked spec in
+// generator-base). Without this, git's real taskEnd runs a real `git init`/
+// `git commit` against the test's on-disk temp fixture, which depends on the
+// running machine having a git identity configured — CI runners don't by
+// default, so this would fail in CI with "Please tell me who you are" even
+// though it can pass locally on a machine with a configured identity.
+// createRepo defaults to false/undefined and these runs never set it, so
+// github's own taskEnd already no-ops regardless.
 const generatorBasePath = (name: string) =>
   fileURLToPath(
     import.meta.resolve(`@sektek/generator-base/generators/${name}`),
@@ -27,7 +39,7 @@ const generatorBasePath = (name: string) =>
 const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
   helper
     .run(generator)
-    .withOptions(options)
+    .withOptions({ gitInit: false, ...options })
     .withGenerators([
       [generatorBasePath('app'), { namespace: '@sektek/base:app' }],
       [
@@ -40,6 +52,8 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
         generatorBasePath('devcontainer'),
         { namespace: '@sektek/base:devcontainer' },
       ],
+      [generatorBasePath('git'), { namespace: '@sektek/base:git' }],
+      [generatorBasePath('github'), { namespace: '@sektek/base:github' }],
       [
         join(__dirname, '../base-package/index.js'),
         { namespace: '@sektek/js:base-package' },
