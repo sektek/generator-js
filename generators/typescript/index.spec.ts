@@ -45,15 +45,12 @@ describe('@sektek/js:typescript', function () {
       expect(tsconfig.compilerOptions.types).to.deep.equal(['mocha', 'node']);
     });
 
-    it('uses vitest/globals + node for testFramework: vitest', async function () {
+    it('uses node only for testFramework: vitest (no ambient globals - specs import explicitly)', async function () {
       const { fs } = await helper
         .run(generator)
         .withOptions({ language: 'typescript', testFramework: 'vitest' });
       const tsconfig = JSON.parse(fs.read('tsconfig.json'));
-      expect(tsconfig.compilerOptions.types).to.deep.equal([
-        'vitest/globals',
-        'node',
-      ]);
+      expect(tsconfig.compilerOptions.types).to.deep.equal(['node']);
     });
 
     it('uses node only for testFramework: none', async function () {

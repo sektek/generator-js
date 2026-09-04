@@ -19,13 +19,16 @@ const ENTRYPOINT_TEMPLATES = {
   'index.spec.ts.ejs': 'index.spec.ts',
 };
 
-const TYPES_BY_TEST_FRAMEWORK: Record<string, string[]> = {
-  vitest: ['vitest/globals', 'node'],
-  none: ['node'],
-};
-
+// Only mocha needs an ambient global type package: our vitest.config.ts
+// template never sets `test.globals: true`, and the generated spec imports
+// describe/it/expect explicitly - so `vitest/globals` would be actively
+// wrong here (it declares those as real ambient globals via `declare
+// global`, which type-checks a bare, unimported `describe(...)` call fine
+// and then throws `ReferenceError` at runtime, since nothing actually
+// defines it without globals enabled). No vitest-specific types entry is
+// needed for explicit imports to type-check.
 const typesFor = (testFramework: string | undefined) =>
-  TYPES_BY_TEST_FRAMEWORK[testFramework ?? 'mocha'] ?? ['mocha', 'node'];
+  (testFramework ?? 'mocha') === 'mocha' ? ['mocha', 'node'] : ['node'];
 
 export class TypescriptGenerator extends BaseGenerator<
   BaseConfig,
