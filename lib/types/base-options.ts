@@ -6,4 +6,5 @@ export type BaseOptions = CoreOptions & {
   author?: string;
   license?: string;
   private?: boolean;
+  testFramework: 'mocha' | 'vitest' | 'none';
 };
