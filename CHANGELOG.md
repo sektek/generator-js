@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0](https://github.com/sektek/generator-js/compare/v0.2.1...v0.3.0) (2026-09-04)
+
+### Features
+
+* **generator-js:** add testFramework field to BaseOptions ([#4](https://github.com/sektek/generator-js/issues/4)) ([1826f83](https://github.com/sektek/generator-js/commit/1826f838b2c182eb442961438ca23be42297bf71))
+
 ## [0.2.1](https://github.com/sektek/generator-js/compare/v0.2.0...v0.2.1) (2026-09-02)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@sektek/generator-js",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "JS/TS project generator for scaffolding new SEKTEK projects (package.json, eslint, prettier, mocha, typescript)",
   "author": "Edward Kelly <eddie@sektek.net>",
   "repository": {
