@@ -3,6 +3,7 @@ import '../gitconfig/index.js';
 import '../typescript/index.js';
 import '../eslint/index.js';
 import '../mocha/index.js';
+import '../vitest/index.js';
 
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
@@ -28,7 +29,7 @@ export class AppGenerator extends BaseGenerator<
 
   async taskInitializing() {
     const { options } = this;
-    const { language } = options;
+    const { language, testFramework } = options;
 
     await this.composeWith('@sektek/base:app', options, true);
     await this.composeWith('gitconfig', options, true);
@@ -40,7 +41,13 @@ export class AppGenerator extends BaseGenerator<
     }
 
     await this.composeWith('eslint', options, true);
-    await this.composeWith('mocha', options, true);
+
+    if (testFramework === 'vitest') {
+      await this.composeWith('vitest', options, true);
+    } else if (testFramework !== 'none') {
+      // Covers 'mocha' and the undefined/unset default alike.
+      await this.composeWith('mocha', options, true);
+    }
   }
 }
 
