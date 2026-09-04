@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0](https://github.com/sektek/generator-js/compare/v0.3.0...v0.4.0) (2026-09-04)
+
+### Features
+
+* **generator-js:** add VitestGenerator sub-generator ([#5](https://github.com/sektek/generator-js/issues/5)) ([a1c3ec0](https://github.com/sektek/generator-js/commit/a1c3ec0ddbc761bfdfbb2642b330b32258fe2762))
+
 ## [0.3.0](https://github.com/sektek/generator-js/compare/v0.2.1...v0.3.0) (2026-09-04)
 
 ### Features
