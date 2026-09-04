@@ -36,6 +36,7 @@ describe('@sektek/js:vitest', function () {
       .withOptions({ language: 'javascript' });
     const config = fs.read('vitest.config.ts');
     expect(config).to.include("include: ['**/*.spec.{js,ts}']");
+    expect(config).to.include("include: ['index.{js,ts}', 'src/**/*.{js,ts}']");
     expect(config).to.include('lines: 90');
     expect(config).to.include('branches: 90');
     expect(config).to.include('functions: 90');

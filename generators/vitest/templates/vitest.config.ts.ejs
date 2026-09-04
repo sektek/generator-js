@@ -5,6 +5,11 @@ export default defineConfig({
     include: ['**/*.spec.{js,ts}'],
     coverage: {
       provider: 'v8',
+      // Matches `mocha`'s `.nycrc.json` counting every source file toward
+      // coverage, not just ones a test happens to import — vitest's own
+      // `all`-style option was removed; setting `include` explicitly is the
+      // modern equivalent (v8/istanbul both honor it the same way).
+      include: ['index.{js,ts}', 'src/**/*.{js,ts}'],
       thresholds: {
         lines: 90,
         branches: 90,
