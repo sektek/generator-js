@@ -6,5 +6,6 @@ export const GENERATORS = [
   'eslint',
   'prettier',
   'mocha',
+  'vitest',
   'workspace',
 ] as const;
