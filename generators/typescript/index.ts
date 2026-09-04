@@ -19,6 +19,14 @@ const ENTRYPOINT_TEMPLATES = {
   'index.spec.ts.ejs': 'index.spec.ts',
 };
 
+const TYPES_BY_TEST_FRAMEWORK: Record<string, string[]> = {
+  vitest: ['vitest/globals', 'node'],
+  none: ['node'],
+};
+
+const typesFor = (testFramework: string | undefined) =>
+  TYPES_BY_TEST_FRAMEWORK[testFramework ?? 'mocha'] ?? ['mocha', 'node'];
+
 export class TypescriptGenerator extends BaseGenerator<
   BaseConfig,
   BaseOptions,
@@ -39,19 +47,28 @@ export class TypescriptGenerator extends BaseGenerator<
   }
 
   taskWriting() {
+    const { testFramework } = this.options;
+    const types = typesFor(testFramework);
+
     Object.entries(CONFIG_TEMPLATES).forEach(([template, destination]) => {
       this.fs.copyTpl(
         this.templatePath(template),
         this.destinationPath(destination),
-        {},
+        { types },
       );
     });
 
     Object.entries(ENTRYPOINT_TEMPLATES).forEach(([template, destination]) => {
+      // No test framework means no test file to write - `index.spec.ts`
+      // would otherwise reference a runner that was never installed.
+      if (template === 'index.spec.ts.ejs' && testFramework === 'none') {
+        return;
+      }
+
       this.fs.copyTpl(
         this.templatePath(template),
         this.destinationPath(destination),
-        { projectName: this.appname },
+        { projectName: this.appname, testFramework },
       );
     });
 

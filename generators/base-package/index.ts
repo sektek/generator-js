@@ -26,7 +26,13 @@ export class BasePackageGenerator extends BaseGenerator<
   }
 
   taskWriting() {
-    const { language, author, license, private: isPrivate } = this.options;
+    const {
+      language,
+      author,
+      license,
+      private: isPrivate,
+      testFramework,
+    } = this.options;
 
     this.fs.copyTpl(
       this.templatePath('package.json.ejs'),
@@ -45,10 +51,16 @@ export class BasePackageGenerator extends BaseGenerator<
     if (language !== 'typescript') {
       Object.entries(ENTRYPOINT_TEMPLATES).forEach(
         ([template, destination]) => {
+          // No test framework means no test file to write - `index.spec.js`
+          // would otherwise reference a runner that was never installed.
+          if (template === 'index.spec.js.ejs' && testFramework === 'none') {
+            return;
+          }
+
           this.fs.copyTpl(
             this.templatePath(template),
             this.destinationPath(destination),
-            { projectName: this.appname },
+            { projectName: this.appname, testFramework },
           );
         },
       );
