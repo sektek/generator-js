@@ -9,7 +9,6 @@ const DEFAULT_FEATURES: Partial<BaseFeatures> = {
 
 const ENTRYPOINT_TEMPLATES = {
   'index.js.ejs': 'index.js',
-  'index.spec.js.ejs': 'index.spec.js',
 };
 
 export class BasePackageGenerator extends BaseGenerator<
@@ -48,7 +47,7 @@ export class BasePackageGenerator extends BaseGenerator<
           this.fs.copyTpl(
             this.templatePath(template),
             this.destinationPath(destination),
-            { projectName: this.appname },
+            {},
           );
         },
       );

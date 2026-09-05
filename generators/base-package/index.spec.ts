@@ -39,7 +39,13 @@ describe('@sektek/js:base-package', function () {
         .withOptions({ language: 'javascript' });
       expect(fs.exists('package.json')).to.be.true;
       expect(fs.exists('index.js')).to.be.true;
-      expect(fs.exists('index.spec.js')).to.be.true;
+    });
+
+    it("does not generate an index.spec.js of its own - that is the composed test-framework generator's job", async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'javascript' });
+      expect(fs.exists('index.spec.js')).to.be.false;
     });
   });
 

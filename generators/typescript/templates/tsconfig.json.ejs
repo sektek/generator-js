@@ -20,6 +20,6 @@
     "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "types": ["mocha", "node"]
+    "types": [<%- types.map(t => JSON.stringify(t)).join(', ') %>]
   }
 }

@@ -16,8 +16,26 @@ const CONFIG_TEMPLATES = {
 
 const ENTRYPOINT_TEMPLATES = {
   'index.ts.ejs': 'index.ts',
-  'index.spec.ts.ejs': 'index.spec.ts',
 };
+
+// Only mocha needs an ambient global type package: our vitest.config.ts
+// template never sets `test.globals: true`, and the generated spec imports
+// describe/it/expect explicitly - so `vitest/globals` would be actively
+// wrong here (it declares those as real ambient globals via `declare
+// global`, which type-checks a bare, unimported `describe(...)` call fine
+// and then throws `ReferenceError` at runtime, since nothing actually
+// defines it without globals enabled). No vitest-specific types entry is
+// needed for explicit imports to type-check.
+//
+// Mirrors AppGenerator's own compose contract exactly: 'vitest' and 'none'
+// are the only two values that opt out of mocha, everything else - including
+// unset/undefined and any unexpected value - falls through to mocha, same as
+// AppGenerator's `else if (testFramework !== 'none')` branch composes mocha
+// for anything that isn't exactly 'vitest' or 'none'.
+const typesFor = (testFramework: string | undefined) =>
+  testFramework === 'vitest' || testFramework === 'none'
+    ? ['node']
+    : ['mocha', 'node'];
 
 export class TypescriptGenerator extends BaseGenerator<
   BaseConfig,
@@ -39,11 +57,14 @@ export class TypescriptGenerator extends BaseGenerator<
   }
 
   taskWriting() {
+    const { testFramework } = this.options;
+    const types = typesFor(testFramework);
+
     Object.entries(CONFIG_TEMPLATES).forEach(([template, destination]) => {
       this.fs.copyTpl(
         this.templatePath(template),
         this.destinationPath(destination),
-        {},
+        { types },
       );
     });
 
@@ -51,7 +72,7 @@ export class TypescriptGenerator extends BaseGenerator<
       this.fs.copyTpl(
         this.templatePath(template),
         this.destinationPath(destination),
-        { projectName: this.appname },
+        {},
       );
     });
 

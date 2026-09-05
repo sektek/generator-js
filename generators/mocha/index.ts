@@ -70,6 +70,14 @@ export class MochaGenerator extends BaseGenerator<
       );
     }
 
+    this.fs.copyTpl(
+      this.templatePath('index.spec.ejs'),
+      this.destinationPath(
+        `index.spec.${language === 'typescript' ? 'ts' : 'js'}`,
+      ),
+      { projectName: this.appname },
+    );
+
     this.fs.extendJSON(this.destinationPath('package.json'), {
       scripts: {
         test: TEST_SCRIPT,
