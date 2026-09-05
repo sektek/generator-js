@@ -62,7 +62,7 @@ describe('@sektek/js:vitest', function () {
       expect(fs.exists('index.spec.ts')).to.be.false;
       const spec = fs.read('index.spec.js');
       expect(spec).to.include("import { describe, expect, it } from 'vitest';");
-      expect(spec).to.include('expect(true).toBe(true);');
+      expect(spec).to.include('expect(true).to.be.true;');
     });
   });
 
@@ -75,7 +75,7 @@ describe('@sektek/js:vitest', function () {
       expect(fs.exists('index.spec.js')).to.be.false;
       const spec = fs.read('index.spec.ts');
       expect(spec).to.include("import { describe, expect, it } from 'vitest';");
-      expect(spec).to.include('expect(true).toBe(true);');
+      expect(spec).to.include('expect(true).to.be.true;');
     });
   });
 });
