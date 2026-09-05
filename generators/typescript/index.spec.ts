@@ -66,5 +66,14 @@ describe('@sektek/js:typescript', function () {
       const tsconfig = JSON.parse(fs.read('tsconfig.json'));
       expect(tsconfig.compilerOptions.types).to.deep.equal(['node']);
     });
+
+    it('falls back to mocha + node for an unexpected testFramework value, matching AppGenerator composing mocha for anything other than vitest/none', async function () {
+      const { fs } = await helper.run(generator).withOptions({
+        language: 'typescript',
+        testFramework: 'some-future-framework',
+      });
+      const tsconfig = JSON.parse(fs.read('tsconfig.json'));
+      expect(tsconfig.compilerOptions.types).to.deep.equal(['mocha', 'node']);
+    });
   });
 });

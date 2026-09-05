@@ -118,19 +118,25 @@ describe('@sektek/js:app', function () {
   });
 
   it('composes mocha when testFramework is explicitly mocha', async function () {
-    const { fs } = await run({ testFramework: 'mocha' });
+    const { fs } = await run({
+      language: 'javascript',
+      testFramework: 'mocha',
+    });
     expect(fs.exists('.mocharc.cjs')).to.be.true;
     expect(fs.exists('vitest.config.ts')).to.be.false;
   });
 
   it('composes vitest when testFramework is vitest', async function () {
-    const { fs } = await run({ testFramework: 'vitest' });
+    const { fs } = await run({
+      language: 'javascript',
+      testFramework: 'vitest',
+    });
     expect(fs.exists('vitest.config.ts')).to.be.true;
     expect(fs.exists('.mocharc.cjs')).to.be.false;
   });
 
   it('composes neither test generator when testFramework is none', async function () {
-    const { fs } = await run({ testFramework: 'none' });
+    const { fs } = await run({ language: 'javascript', testFramework: 'none' });
     expect(fs.exists('.mocharc.cjs')).to.be.false;
     expect(fs.exists('vitest.config.ts')).to.be.false;
     const pkg = JSON.parse(fs.read('package.json'));

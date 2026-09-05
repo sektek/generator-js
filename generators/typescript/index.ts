@@ -26,8 +26,16 @@ const ENTRYPOINT_TEMPLATES = {
 // and then throws `ReferenceError` at runtime, since nothing actually
 // defines it without globals enabled). No vitest-specific types entry is
 // needed for explicit imports to type-check.
+//
+// Mirrors AppGenerator's own compose contract exactly: 'vitest' and 'none'
+// are the only two values that opt out of mocha, everything else - including
+// unset/undefined and any unexpected value - falls through to mocha, same as
+// AppGenerator's `else if (testFramework !== 'none')` branch composes mocha
+// for anything that isn't exactly 'vitest' or 'none'.
 const typesFor = (testFramework: string | undefined) =>
-  (testFramework ?? 'mocha') === 'mocha' ? ['mocha', 'node'] : ['node'];
+  testFramework === 'vitest' || testFramework === 'none'
+    ? ['node']
+    : ['mocha', 'node'];
 
 export class TypescriptGenerator extends BaseGenerator<
   BaseConfig,
