@@ -21,8 +21,8 @@ JS/TS project generator for scaffolding new SEKTEK projects, driven by
   reflects `testFramework`) and a TS entrypoint (likewise no test file of its own).
 - `eslint` — writes `eslint.config.js`, composing `prettier`.
 - `prettier` — writes `.prettierrc.js`/`.prettierignore`.
-- `mocha` — writes `.mocharc.cjs` (and, for TypeScript, `.mocharc.min.cjs`/`.nycrc.json`) plus
-  a chai/BDD-style `index.spec.ts`/`index.spec.js` entrypoint.
+- `mocha` — writes `.mocharc.cjs`/`.mocharc.min.cjs` (and, for TypeScript, `.nycrc.json` too)
+  plus a chai/BDD-style `index.spec.ts`/`index.spec.js` entrypoint.
 - `vitest` — writes `vitest.config.ts` (one config for both JS and TS projects) plus an
   `index.spec.ts`/`index.spec.js` entrypoint using vitest's own `expect` with chai-style
   BDD assertions.
