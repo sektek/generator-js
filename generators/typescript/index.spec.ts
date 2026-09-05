@@ -25,7 +25,13 @@ describe('@sektek/js:typescript', function () {
     expect(fs.exists('tsconfig.json')).to.be.true;
     expect(fs.exists('tsconfig.build.json')).to.be.true;
     expect(fs.exists('index.ts')).to.be.true;
-    expect(fs.exists('index.spec.ts')).to.be.true;
+  });
+
+  it("does not generate an index.spec.ts of its own - that is the composed test-framework generator's job", async function () {
+    const { fs } = await helper
+      .run(generator)
+      .withOptions({ language: 'typescript', testFramework: 'mocha' });
+    expect(fs.exists('index.spec.ts')).to.be.false;
   });
 
   describe('tsconfig.json "types" by testFramework', function () {
@@ -59,34 +65,6 @@ describe('@sektek/js:typescript', function () {
         .withOptions({ language: 'typescript', testFramework: 'none' });
       const tsconfig = JSON.parse(fs.read('tsconfig.json'));
       expect(tsconfig.compilerOptions.types).to.deep.equal(['node']);
-    });
-  });
-
-  describe('index.spec.ts by testFramework', function () {
-    it('imports chai and uses BDD assertions for testFramework: mocha', async function () {
-      const { fs } = await helper
-        .run(generator)
-        .withOptions({ language: 'typescript', testFramework: 'mocha' });
-      const spec = fs.read('index.spec.ts');
-      expect(spec).to.include("import { expect } from 'chai';");
-      expect(spec).to.include('expect(true).to.be.true;');
-    });
-
-    it('imports from vitest and uses Jest-style assertions for testFramework: vitest', async function () {
-      const { fs } = await helper
-        .run(generator)
-        .withOptions({ language: 'typescript', testFramework: 'vitest' });
-      const spec = fs.read('index.spec.ts');
-      expect(spec).to.include("import { describe, expect, it } from 'vitest';");
-      expect(spec).to.include('expect(true).toBe(true);');
-    });
-
-    it('does not generate index.spec.ts for testFramework: none', async function () {
-      const { fs } = await helper
-        .run(generator)
-        .withOptions({ language: 'typescript', testFramework: 'none' });
-      expect(fs.exists('index.spec.ts')).to.be.false;
-      expect(fs.exists('index.ts')).to.be.true;
     });
   });
 });

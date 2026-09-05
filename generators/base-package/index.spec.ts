@@ -39,37 +39,13 @@ describe('@sektek/js:base-package', function () {
         .withOptions({ language: 'javascript' });
       expect(fs.exists('package.json')).to.be.true;
       expect(fs.exists('index.js')).to.be.true;
-      expect(fs.exists('index.spec.js')).to.be.true;
     });
 
-    describe('index.spec.js by testFramework', function () {
-      it('imports chai and uses BDD assertions by default', async function () {
-        const { fs } = await helper
-          .run(generator)
-          .withOptions({ language: 'javascript' });
-        const spec = fs.read('index.spec.js');
-        expect(spec).to.include("import { expect } from 'chai';");
-        expect(spec).to.include('expect(true).to.be.true;');
-      });
-
-      it('imports from vitest and uses Jest-style assertions for testFramework: vitest', async function () {
-        const { fs } = await helper
-          .run(generator)
-          .withOptions({ language: 'javascript', testFramework: 'vitest' });
-        const spec = fs.read('index.spec.js');
-        expect(spec).to.include(
-          "import { describe, expect, it } from 'vitest';",
-        );
-        expect(spec).to.include('expect(true).toBe(true);');
-      });
-
-      it('does not generate index.spec.js for testFramework: none', async function () {
-        const { fs } = await helper
-          .run(generator)
-          .withOptions({ language: 'javascript', testFramework: 'none' });
-        expect(fs.exists('index.spec.js')).to.be.false;
-        expect(fs.exists('index.js')).to.be.true;
-      });
+    it("does not generate an index.spec.js of its own - that is the composed test-framework generator's job", async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'javascript' });
+      expect(fs.exists('index.spec.js')).to.be.false;
     });
   });
 

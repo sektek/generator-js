@@ -16,7 +16,6 @@ const CONFIG_TEMPLATES = {
 
 const ENTRYPOINT_TEMPLATES = {
   'index.ts.ejs': 'index.ts',
-  'index.spec.ts.ejs': 'index.spec.ts',
 };
 
 // Only mocha needs an ambient global type package: our vitest.config.ts
@@ -62,16 +61,10 @@ export class TypescriptGenerator extends BaseGenerator<
     });
 
     Object.entries(ENTRYPOINT_TEMPLATES).forEach(([template, destination]) => {
-      // No test framework means no test file to write - `index.spec.ts`
-      // would otherwise reference a runner that was never installed.
-      if (template === 'index.spec.ts.ejs' && testFramework === 'none') {
-        return;
-      }
-
       this.fs.copyTpl(
         this.templatePath(template),
         this.destinationPath(destination),
-        { projectName: this.appname, testFramework },
+        {},
       );
     });
 

@@ -30,10 +30,20 @@ export class VitestGenerator extends BaseGenerator<
   }
 
   taskWriting() {
+    const { language } = this.options;
+
     this.fs.copyTpl(
       this.templatePath('vitest.config.ts.ejs'),
       this.destinationPath('vitest.config.ts'),
       {},
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('index.spec.ejs'),
+      this.destinationPath(
+        `index.spec.${language === 'typescript' ? 'ts' : 'js'}`,
+      ),
+      { projectName: this.appname },
     );
 
     this.fs.extendJSON(this.destinationPath('package.json'), {

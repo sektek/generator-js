@@ -44,6 +44,17 @@ describe('@sektek/js:mocha', function () {
         .withOptions({ language: 'javascript' });
       expect(fs.exists('.nycrc.json')).to.be.false;
     });
+
+    it('generates an index.spec.js entrypoint using chai/BDD', async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'javascript' });
+      expect(fs.exists('index.spec.js')).to.be.true;
+      expect(fs.exists('index.spec.ts')).to.be.false;
+      const spec = fs.read('index.spec.js');
+      expect(spec).to.include("import { expect } from 'chai';");
+      expect(spec).to.include('expect(true).to.be.true;');
+    });
   });
 
   describe('with language: typescript', function () {
@@ -64,6 +75,17 @@ describe('@sektek/js:mocha', function () {
       const nycrc = JSON.parse(fs.read('.nycrc.json'));
       expect(nycrc.extends).to.equal('@istanbuljs/nyc-config-typescript');
       expect(nycrc.include).to.deep.equal(['index.ts', 'src/**/*.ts']);
+    });
+
+    it('generates an index.spec.ts entrypoint using chai/BDD', async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'typescript' });
+      expect(fs.exists('index.spec.ts')).to.be.true;
+      expect(fs.exists('index.spec.js')).to.be.false;
+      const spec = fs.read('index.spec.ts');
+      expect(spec).to.include("import { expect } from 'chai';");
+      expect(spec).to.include('expect(true).to.be.true;');
     });
   });
 });

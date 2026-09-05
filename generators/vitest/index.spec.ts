@@ -52,4 +52,30 @@ describe('@sektek/js:vitest', function () {
     expect(pkg.scripts['test:watch']).to.equal(TEST_WATCH_SCRIPT);
     expect(pkg.scripts['test:cover']).to.equal(TEST_COVER_SCRIPT);
   });
+
+  describe('with language: javascript', function () {
+    it('generates an index.spec.js entrypoint using native vitest imports', async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'javascript' });
+      expect(fs.exists('index.spec.js')).to.be.true;
+      expect(fs.exists('index.spec.ts')).to.be.false;
+      const spec = fs.read('index.spec.js');
+      expect(spec).to.include("import { describe, expect, it } from 'vitest';");
+      expect(spec).to.include('expect(true).toBe(true);');
+    });
+  });
+
+  describe('with language: typescript', function () {
+    it('generates an index.spec.ts entrypoint using native vitest imports', async function () {
+      const { fs } = await helper
+        .run(generator)
+        .withOptions({ language: 'typescript' });
+      expect(fs.exists('index.spec.ts')).to.be.true;
+      expect(fs.exists('index.spec.js')).to.be.false;
+      const spec = fs.read('index.spec.ts');
+      expect(spec).to.include("import { describe, expect, it } from 'vitest';");
+      expect(spec).to.include('expect(true).toBe(true);');
+    });
+  });
 });
