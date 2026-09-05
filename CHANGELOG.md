@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.0](https://github.com/sektek/generator-js/compare/v0.4.0...v0.5.0) (2026-09-05)
+
+### Features
+
+* **generator-js:** wire testFramework into AppGenerator ([#6](https://github.com/sektek/generator-js/issues/6)) ([d21245d](https://github.com/sektek/generator-js/commit/d21245da2f3cb780840ded52998904bc0c58c547)), closes [sektek/generator-js#5](https://github.com/sektek/generator-js/issues/5)
+
 ## [0.4.0](https://github.com/sektek/generator-js/compare/v0.3.0...v0.4.0) (2026-09-04)
 
 ### Features
