@@ -7,4 +7,6 @@ export type BaseOptions = CoreOptions & {
   license?: string;
   private?: boolean;
   testFramework: 'mocha' | 'vitest' | 'none';
+  dependencies?: string[];
+  devDependencies?: string[];
 };

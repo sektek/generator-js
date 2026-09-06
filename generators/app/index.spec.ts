@@ -59,6 +59,10 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
         { namespace: '@sektek/js:base-package' },
       ],
       [
+        join(__dirname, '../dependencies/index.js'),
+        { namespace: '@sektek/js:dependencies' },
+      ],
+      [
         join(__dirname, '../gitconfig/index.js'),
         { namespace: '@sektek/js:gitconfig' },
       ],
@@ -110,6 +114,17 @@ describe('@sektek/js:app', function () {
     const { fs } = await run();
     expect(fs.exists('eslint.config.js')).to.be.true;
     expect(fs.exists('.prettierrc.js')).to.be.true;
+  });
+
+  it('composes dependencies, adding user-supplied dependencies/devDependencies to package.json', async function () {
+    const { fs } = await run({
+      language: 'javascript',
+      dependencies: ['lodash@4.17.21'],
+      devDependencies: ['chalk@5.3.0'],
+    });
+    const pkg = JSON.parse(fs.read('package.json'));
+    expect(pkg.dependencies.lodash).to.equal('4.17.21');
+    expect(pkg.devDependencies.chalk).to.equal('5.3.0');
   });
 
   it('composes mocha by default', async function () {

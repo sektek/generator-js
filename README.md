@@ -9,13 +9,17 @@ JS/TS project generator for scaffolding new SEKTEK projects, driven by
 `license: 'UNLICENSED'`, `private: true`. Sub-generators:
 
 - `app` — the entrypoint; composes `@sektek/base:app`, `@sektek/base:devcontainer`,
-  `base-package`, `gitconfig`, `eslint`, and, when `language: 'typescript'`, `typescript`.
-  Also composes a test framework based on `testFramework` (`'mocha'` (default), `'vitest'`,
-  or `'none'` to skip test tooling entirely): `mocha` unless `testFramework` is exactly
-  `'vitest'` or `'none'`.
+  `base-package`, `dependencies`, `gitconfig`, `eslint`, and, when `language: 'typescript'`,
+  `typescript`. Also composes a test framework based on `testFramework` (`'mocha'` (default),
+  `'vitest'`, or `'none'` to skip test tooling entirely): `mocha` unless `testFramework` is
+  exactly `'vitest'` or `'none'`.
 - `base-package` — writes `package.json` and, for `language: 'javascript'`, a plain-JS
   entrypoint (no test file — that's the composed test-framework generator's job, not
   `base-package`'s).
+- `dependencies` — adds user-supplied `dependencies`/`devDependencies` (each a `package-name`
+  or `package-name@version` string, e.g. `'lodash'` or `'lodash@4.17.21'`; scoped packages
+  supported, e.g. `'@scope/name@1.2.3'`) to `package.json`. Not prompted for interactively —
+  CLI/config-file only.
 - `gitconfig` — composes `@sektek/base:gitconfig`, then layers JS-specific `.gitignore` rules.
 - `typescript` — writes `tsconfig.json`/`tsconfig.build.json` (its `compilerOptions.types`
   reflects `testFramework`) and a TS entrypoint (likewise no test file of its own).

@@ -1,4 +1,5 @@
 import '../base-package/index.js';
+import '../dependencies/index.js';
 import '../gitconfig/index.js';
 import '../typescript/index.js';
 import '../eslint/index.js';
@@ -35,6 +36,7 @@ export class AppGenerator extends BaseGenerator<
     await this.composeWith('gitconfig', options, true);
     await this.composeWith('@sektek/base:devcontainer', options, true);
     await this.composeWith('base-package', options, true);
+    await this.composeWith('dependencies', options, true);
 
     if (language === 'typescript') {
       await this.composeWith('typescript', options, true);
