@@ -127,6 +127,15 @@ describe('@sektek/js:app', function () {
     expect(pkg.devDependencies.chalk).to.equal('5.3.0');
   });
 
+  it('composes dependencies last, so a caller-pinned version of a package another sub-generator also adds takes precedence', async function () {
+    const { fs } = await run({
+      language: 'typescript',
+      devDependencies: ['typescript@4.9.5'],
+    });
+    const pkg = JSON.parse(fs.read('package.json'));
+    expect(pkg.devDependencies.typescript).to.equal('4.9.5');
+  });
+
   it('composes mocha by default', async function () {
     const { fs } = await run();
     expect(fs.exists('.mocharc.cjs')).to.be.true;

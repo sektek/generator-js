@@ -36,7 +36,6 @@ export class AppGenerator extends BaseGenerator<
     await this.composeWith('gitconfig', options, true);
     await this.composeWith('@sektek/base:devcontainer', options, true);
     await this.composeWith('base-package', options, true);
-    await this.composeWith('dependencies', options, true);
 
     if (language === 'typescript') {
       await this.composeWith('typescript', options, true);
@@ -50,6 +49,13 @@ export class AppGenerator extends BaseGenerator<
       // Covers 'mocha' and the undefined/unset default alike.
       await this.composeWith('mocha', options, true);
     }
+
+    // Compose last: every sub-generator's writeDependencies() extendJSON-merges
+    // into package.json on the shared 'writing' queue, last write wins for a
+    // given key, so caller-pinned dependencies/devDependencies must be
+    // composed after every other dependency-writing sub-generator to take
+    // precedence over the versions they resolve for overlapping package names.
+    await this.composeWith('dependencies', options, true);
   }
 }
 
