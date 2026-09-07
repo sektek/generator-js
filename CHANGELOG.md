@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.0](https://github.com/sektek/generator-js/compare/v0.5.0...v0.6.0) (2026-09-07)
+
+### Features
+
+* allow a provided list of dependencies for JS/TS projects ([#9](https://github.com/sektek/generator-js/issues/9)) ([2d24d75](https://github.com/sektek/generator-js/commit/2d24d75c29fc2946ca28b3011bac352d5e176b74))
+
 ## [0.5.0](https://github.com/sektek/generator-js/compare/v0.4.0...v0.5.0) (2026-09-05)
 
 ### Features
