@@ -50,11 +50,7 @@ export class AppGenerator extends BaseGenerator<
       await this.composeWith('mocha', options, true);
     }
 
-    // Compose last: every sub-generator's writeDependencies() extendJSON-merges
-    // into package.json on the shared 'writing' queue, last write wins for a
-    // given key, so caller-pinned dependencies/devDependencies must be
-    // composed after every other dependency-writing sub-generator to take
-    // precedence over the versions they resolve for overlapping package names.
+    // Add dependencies last to preserve user selected versions
     await this.composeWith('dependencies', options, true);
   }
 }

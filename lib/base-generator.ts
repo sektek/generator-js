@@ -4,7 +4,10 @@ import latestVersion from 'latest-version';
 import { BaseConfig } from './types/base-config.js';
 import { BaseFeatures } from './types/base-features.js';
 import { BaseOptions } from './types/base-options.js';
+import { detectDependencyConflicts } from './detect-dependency-conflicts.js';
 import { sortPackageJsonDependencies } from './sort-package-json-dependencies.js';
+
+type PackageDependencies = Record<string, string>;
 
 const DEFAULT_OPTIONS: Partial<BaseOptions> = {
   packageScope: 'sektek',
@@ -51,11 +54,30 @@ export class BaseGenerator<
 
   writeDependencies() {
     const { dependencies, devDependencies } = this;
+    const packageJsonPath = this.destinationPath('package.json');
+    const existing = this.fs.readJSON(packageJsonPath, {}) as {
+      dependencies?: PackageDependencies;
+      devDependencies?: PackageDependencies;
+    };
 
-    this.fs.extendJSON(this.destinationPath('package.json'), {
-      dependencies,
-      devDependencies,
-    });
+    for (const conflict of [
+      ...detectDependencyConflicts(
+        'dependencies',
+        existing.dependencies ?? {},
+        dependencies,
+      ),
+      ...detectDependencyConflicts(
+        'devDependencies',
+        existing.devDependencies ?? {},
+        devDependencies,
+      ),
+    ]) {
+      this.log(
+        `${conflict.section}["${conflict.name}"]: overwriting ${conflict.existingVersion} with ${conflict.newVersion}`,
+      );
+    }
+
+    this.fs.extendJSON(packageJsonPath, { dependencies, devDependencies });
   }
 }
 
