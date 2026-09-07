@@ -1,4 +1,5 @@
 import '../base-package/index.js';
+import '../dependencies/index.js';
 import '../gitconfig/index.js';
 import '../typescript/index.js';
 import '../eslint/index.js';
@@ -48,6 +49,9 @@ export class AppGenerator extends BaseGenerator<
       // Covers 'mocha' and the undefined/unset default alike.
       await this.composeWith('mocha', options, true);
     }
+
+    // Add dependencies last to preserve user selected versions
+    await this.composeWith('dependencies', options, true);
   }
 }
 
