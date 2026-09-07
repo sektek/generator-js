@@ -1,10 +1,10 @@
 import { CoreGenerator } from '@sektek/generator';
-import latestVersion from 'latest-version';
 
 import { BaseConfig } from './types/base-config.js';
 import { BaseFeatures } from './types/base-features.js';
 import { BaseOptions } from './types/base-options.js';
 import { detectDependencyConflicts } from './detect-dependency-conflicts.js';
+import { resolveDependencyVersion } from './version-resolver.js';
 import { sortPackageJsonDependencies } from './sort-package-json-dependencies.js';
 
 type PackageDependencies = Record<string, string>;
@@ -37,19 +37,11 @@ export class BaseGenerator<
   }
 
   async addDependency(name: string, version?: string) {
-    this.dependencies[name] = await this.#resolveVersion(name, version);
+    this.dependencies[name] = await resolveDependencyVersion(name, version);
   }
 
   async addDevDependency(name: string, version?: string) {
-    this.devDependencies[name] = await this.#resolveVersion(name, version);
-  }
-
-  async #resolveVersion(name: string, version?: string) {
-    if (!version) {
-      return await latestVersion(name);
-    } else {
-      return await latestVersion(name, { version });
-    }
+    this.devDependencies[name] = await resolveDependencyVersion(name, version);
   }
 
   writeDependencies() {
