@@ -33,4 +33,14 @@ describe('parseDependencySpec', function () {
       version: 'next',
     });
   });
+
+  it('normalizes a trailing @ with no version to undefined, not an empty string', function () {
+    expect(parseDependencySpec('lodash@')).to.deep.equal({ name: 'lodash' });
+  });
+
+  it('normalizes a trailing @ on a scoped package to undefined, not an empty string', function () {
+    expect(parseDependencySpec('@scope/name@')).to.deep.equal({
+      name: '@scope/name',
+    });
+  });
 });

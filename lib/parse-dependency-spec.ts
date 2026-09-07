@@ -23,10 +23,9 @@ export const parseDependencySpec = (spec: string): DependencySpec => {
     return { name: spec };
   }
 
-  return {
-    name: spec.slice(0, lastAt),
-    version: spec.slice(lastAt + 1),
-  };
+  const name = spec.slice(0, lastAt);
+  const version = spec.slice(lastAt + 1);
+  return version === '' ? { name } : { name, version };
 };
 
 export default parseDependencySpec;

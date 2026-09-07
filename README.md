@@ -9,10 +9,12 @@ JS/TS project generator for scaffolding new SEKTEK projects, driven by
 `license: 'UNLICENSED'`, `private: true`. Sub-generators:
 
 - `app` — the entrypoint; composes `@sektek/base:app`, `@sektek/base:devcontainer`,
-  `base-package`, `dependencies`, `gitconfig`, `eslint`, and, when `language: 'typescript'`,
-  `typescript`. Also composes a test framework based on `testFramework` (`'mocha'` (default),
-  `'vitest'`, or `'none'` to skip test tooling entirely): `mocha` unless `testFramework` is
-  exactly `'vitest'` or `'none'`.
+  `base-package`, `gitconfig`, `eslint`, and, when `language: 'typescript'`, `typescript`. Also
+  composes a test framework based on `testFramework` (`'mocha'` (default), `'vitest'`, or
+  `'none'` to skip test tooling entirely): `mocha` unless `testFramework` is exactly `'vitest'`
+  or `'none'`. Composes `dependencies` last, after every other dependency-writing sub-generator,
+  so a caller-pinned version wins over whatever version those sub-generators resolve for an
+  overlapping package name.
 - `base-package` — writes `package.json` and, for `language: 'javascript'`, a plain-JS
   entrypoint (no test file — that's the composed test-framework generator's job, not
   `base-package`'s).

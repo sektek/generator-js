@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
 
+import { STUB_VERSION } from '../../test/stub-version-resolver.js';
+
 import { DependenciesGenerator } from './index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,14 +29,13 @@ describe('@sektek/js:dependencies', function () {
     expect(pkg.devDependencies).to.deep.equal({});
   });
 
-  it('adds unversioned entries from options.dependencies at their latest version', async function () {
+  it('adds unversioned entries from options.dependencies, resolving a version', async function () {
     const { fs } = await helper.run(generator).withOptions({
       language: 'javascript',
       dependencies: ['lodash'],
     });
     const pkg = JSON.parse(fs.read('package.json'));
-    expect(pkg.dependencies.lodash).to.be.a('string');
-    expect(pkg.dependencies.lodash).to.not.be.empty;
+    expect(pkg.dependencies.lodash).to.equal(STUB_VERSION);
   });
 
   it('adds a package-name@version entry from options.dependencies at the pinned version', async function () {
