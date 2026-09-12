@@ -9,9 +9,13 @@ import { sortPackageJsonDependencies } from './sort-package-json-dependencies.js
 
 type PackageDependencies = Record<string, string>;
 
+// No `author` default here (SEK-92): a hardcoded person's name/email is
+// wrong for anyone else running these generators directly (outside
+// tools/gen, which now derives it from the caller's own git config
+// instead — see its git-identity.ts). Leaving it unset here means
+// whoever's own options (or lack of one) simply passes through.
 const DEFAULT_OPTIONS: Partial<BaseOptions> = {
   packageScope: 'sektek',
-  author: 'Edward Kelly <eddie@sektek.net>',
   license: 'UNLICENSED',
   private: true,
 };
