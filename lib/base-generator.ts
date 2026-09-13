@@ -11,7 +11,6 @@ type PackageDependencies = Record<string, string>;
 
 const DEFAULT_OPTIONS: Partial<BaseOptions> = {
   packageScope: 'sektek',
-  author: 'Edward Kelly <eddie@sektek.net>',
   license: 'UNLICENSED',
   private: true,
 };
