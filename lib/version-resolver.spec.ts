@@ -1,5 +1,6 @@
 import { expect, use } from 'chai';
 import sinon, { SinonStub } from 'sinon';
+import latestVersion from 'latest-version';
 import sinonChai from 'sinon-chai';
 
 import { stubVersionResolver } from '../test/stub-version-resolver.js';
@@ -42,6 +43,10 @@ describe('version-resolver', function () {
       setLatestVersionFetcherForTesting(fetchStub);
     });
 
+    afterEach(function () {
+      setLatestVersionFetcherForTesting(latestVersion);
+    });
+
     it('resolves and caret-prefixes when no version is given', async function () {
       fetchStub.resolves('18.3.1');
 
@@ -69,7 +74,15 @@ describe('version-resolver', function () {
       });
     });
 
-    for (const range of ['^18', '~2.1.0', '>=3', '<=2.0.0', '1.x', '*']) {
+    for (const range of [
+      '^18',
+      '~2.1.0',
+      '=18.3.1',
+      '>=3',
+      '<=2.0.0',
+      '1.x',
+      '*',
+    ]) {
       it(`passes an explicit range (${range}) through untouched, without calling the registry`, async function () {
         expect(await resolveLatestVersion('react', range)).to.equal(range);
         expect(fetchStub).not.to.have.been.called;

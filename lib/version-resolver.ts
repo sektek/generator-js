@@ -5,10 +5,10 @@ export type VersionResolver = (
   version?: string,
 ) => Promise<string>;
 
-// Matches an explicit range/wildcard (^, ~, >, <, |, a 1.x-style segment, a
-// bare *, or whitespace for a hyphen/multi-comparator range) — not a bare
+// Matches an explicit range/wildcard (^, ~, =, >, <, |, a 1.x-style segment,
+// a bare *, or whitespace for a hyphen/multi-comparator range) — not a bare
 // version or dist-tag.
-const RANGE_OPERATOR_PATTERN = /[\^~<>|*]|(?:^|\.)[xX](?:\.|$)|\s/;
+const RANGE_OPERATOR_PATTERN = /[\^~=<>|*]|(?:^|\.)[xX](?:\.|$)|\s/;
 
 function hasExplicitRange(version: string): boolean {
   return RANGE_OPERATOR_PATTERN.test(version);
