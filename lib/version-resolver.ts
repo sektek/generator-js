@@ -1,23 +1,49 @@
-import latestVersion from 'latest-version';
+import latestVersion, { type Options } from 'latest-version';
 
 export type VersionResolver = (
   name: string,
   version?: string,
 ) => Promise<string>;
 
+// Matches an explicit range/wildcard (^, ~, >, <, |, a 1.x-style segment, a
+// bare *, or whitespace for a hyphen/multi-comparator range) — not a bare
+// version or dist-tag.
+const RANGE_OPERATOR_PATTERN = /[\^~<>|*]|(?:^|\.)[xX](?:\.|$)|\s/;
+
+function hasExplicitRange(version: string): boolean {
+  return RANGE_OPERATOR_PATTERN.test(version);
+}
+
+type LatestVersionFetcher = (
+  name: string,
+  options?: Options,
+) => Promise<string>;
+
+let fetchLatestVersion: LatestVersionFetcher = latestVersion;
+
 /**
  * The real, npm-registry-backed resolver `resolveDependencyVersion` uses
- * by default.
+ * by default. An explicit range/wildcard is returned verbatim with no
+ * registry call; anything else is resolved via `latest-version` and
+ * returned caret-prefixed, matching npm's own default save-prefix
+ * behavior.
  *
  * @param name - The package name.
  * @param version - An explicit version/range/tag, if pinned.
  * @returns The version string to write to package.json.
  */
-async function resolveLatestVersion(
+export async function resolveLatestVersion(
   name: string,
   version?: string,
 ): Promise<string> {
-  return version ? latestVersion(name, { version }) : latestVersion(name);
+  if (version !== undefined && hasExplicitRange(version)) {
+    return version;
+  }
+
+  const resolved = version
+    ? await fetchLatestVersion(name, { version })
+    : await fetchLatestVersion(name);
+  return `^${resolved}`;
 }
 
 let resolver: VersionResolver = resolveLatestVersion;
@@ -49,6 +75,19 @@ export function setVersionResolverForTesting(
   testResolver: VersionResolver,
 ): void {
   resolver = testResolver;
+}
+
+/**
+ * Test-only escape hatch: swaps the underlying `latest-version` fetcher
+ * `resolveLatestVersion` uses, so specs can exercise its own logic without
+ * hitting the real npm registry.
+ *
+ * @param fetcher - The stand-in fetcher to install.
+ */
+export function setLatestVersionFetcherForTesting(
+  fetcher: LatestVersionFetcher,
+): void {
+  fetchLatestVersion = fetcher;
 }
 
 export default resolveDependencyVersion;
