@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.1](https://github.com/sektek/generator-js/compare/v0.6.0...v0.6.1) (2026-09-13)
+
+### Bug Fixes
+
+* **generator-js:** default resolved dependency versions to a caret range ([#10](https://github.com/sektek/generator-js/issues/10)) ([cfccc86](https://github.com/sektek/generator-js/commit/cfccc864514bf0c02b81805280249a6fb4a4448b))
+
 ## [0.6.0](https://github.com/sektek/generator-js/compare/v0.5.0...v0.6.0) (2026-09-07)
 
 ### Features
