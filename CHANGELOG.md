@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.0](https://github.com/sektek/generator-js/compare/v0.6.1...v0.7.0) (2026-09-13)
+
+### Features
+
+* **generator-js:** remove redundant hardcoded author default (SEK-92) ([#11](https://github.com/sektek/generator-js/issues/11)) ([6de1daa](https://github.com/sektek/generator-js/commit/6de1daa7f614fafad57b99898033aebd183e2863))
+
 ## [0.6.1](https://github.com/sektek/generator-js/compare/v0.6.0...v0.6.1) (2026-09-13)
 
 ### Bug Fixes
