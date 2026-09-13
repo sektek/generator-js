@@ -31,12 +31,9 @@ describe('version-resolver', function () {
     });
   });
 
-  // Exercises the real, npm-registry-backed resolver itself (SEK-95): its
-  // caret-prefixing and explicit-range-passthrough logic. The registry call
-  // is faked via setLatestVersionFetcherForTesting rather than hit for
-  // real — resolveLatestVersion is called directly here, so this never
-  // touches resolveDependencyVersion's own swappable `resolver` (which
-  // every other spec relies on staying set to stubVersionResolver).
+  // Calls resolveLatestVersion directly, with the registry call faked via
+  // setLatestVersionFetcherForTesting — never touches the swappable
+  // `resolver` the specs above rely on staying set to stubVersionResolver.
   describe('resolveLatestVersion', function () {
     let fetchStub: SinonStub;
 
