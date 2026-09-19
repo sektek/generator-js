@@ -1,3 +1,5 @@
+import { Prompt, authorPrompt } from '@sektek/generator';
+
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
@@ -16,6 +18,13 @@ export class BasePackageGenerator extends BaseGenerator<
   BaseOptions,
   BaseFeatures
 > {
+  // Included as-is, same as generator-base's license (SEK-102): nothing in
+  // base-package's own options gates author on another answer, so there's
+  // no includePrompt/default to layer on via promptBuilder.from(...).
+  static prompts(): Prompt[] {
+    return [authorPrompt];
+  }
+
   constructor(
     args: string[],
     options: BaseOptions,

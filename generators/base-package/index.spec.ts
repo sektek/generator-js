@@ -97,4 +97,13 @@ describe('@sektek/js:base-package', function () {
       );
     });
   });
+
+  describe('prompts()', function () {
+    it('includes the shared author prompt', function () {
+      const prompts = BasePackageGenerator.prompts();
+      const author = prompts.find(p => p.name === 'author');
+
+      expect(author).to.exist;
+    });
+  });
 });
