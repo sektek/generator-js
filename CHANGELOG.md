@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.0](https://github.com/sektek/generator-js/compare/v0.7.0...v0.8.0) (2026-09-19)
+
+### Features
+
+* **generator-js:** base-package consumes shared authorPrompt ([#12](https://github.com/sektek/generator-js/issues/12)) ([cfce661](https://github.com/sektek/generator-js/commit/cfce661153cde2e0fe592327244ce8f2c3582fba))
+
 ## [0.7.0](https://github.com/sektek/generator-js/compare/v0.6.1...v0.7.0) (2026-09-13)
 
 ### Features
