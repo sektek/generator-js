@@ -11,15 +11,16 @@ const __dirname = dirname(__filename);
 const generator = join(__dirname, 'index.js');
 
 // AppGenerator's compose chain reaches two levels deep: app -> @sektek/base:app
-// -> editorconfig/git/gitconfig/github/readme/devcontainer, and app -> eslint
-// -> prettier. The shared test helper has nothing registered under any of
-// these namespaces by default, so every namespace actually reached anywhere
-// in the chain must be registered by path (registering by class reference
-// instead would break templatePath()/sourceRoot() resolution for whichever
-// generator it's used on). Resolved via @sektek/generator-base's own package
-// exports (an installed npm dependency, not a monorepo sibling directory)
-// rather than a relative path, since this package no longer lives next to
-// generator-base on disk.
+// -> editorconfig/git/gitconfig/github/readme/devcontainer/license/config,
+// and app -> eslint -> prettier. The shared test helper has nothing
+// registered under any of these namespaces by default, so every namespace
+// actually reached anywhere in the chain must be registered by path
+// (registering by class reference instead would break
+// templatePath()/sourceRoot() resolution for whichever generator it's used
+// on). Resolved via @sektek/generator-base's own package exports (an
+// installed npm dependency, not a monorepo sibling directory) rather than a
+// relative path, since this package no longer lives next to generator-base
+// on disk.
 //
 // gitInit: false in run()'s default options — these tests are about
 // composition (each sub-generator produces its expected files), not git's
@@ -54,6 +55,8 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
       ],
       [generatorBasePath('git'), { namespace: '@sektek/base:git' }],
       [generatorBasePath('github'), { namespace: '@sektek/base:github' }],
+      [generatorBasePath('license'), { namespace: '@sektek/base:license' }],
+      [generatorBasePath('config'), { namespace: '@sektek/base:config' }],
       [
         join(__dirname, '../base-package/index.js'),
         { namespace: '@sektek/js:base-package' },
