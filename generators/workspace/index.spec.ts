@@ -59,6 +59,17 @@ describe('@sektek/js:workspace', function () {
     expect(result.generator).to.be.instanceOf(WorkspaceGenerator);
   });
 
+  it('aggregates prompts from its composed generators without throwing', function () {
+    expect(() => WorkspaceGenerator.prompts()).to.not.throw();
+    expect(WorkspaceGenerator.prompts()).to.be.an('array');
+  });
+
+  it('declares destinationMode: newProjectDir', function () {
+    expect(WorkspaceGenerator.destinationMode()).to.deep.equal({
+      kind: 'newProjectDir',
+    });
+  });
+
   it('composes @sektek/base:workspace (devcontainer, vscode, readme checklist)', async function () {
     const { fs } = await run();
     expect(fs.exists('.devcontainer/devcontainer.json')).to.be.true;

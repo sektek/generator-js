@@ -1,10 +1,12 @@
-import '../eslint/index.js';
-import '../gitconfig/index.js';
+import { Composite, DestinationMode } from '@sektek/generator';
+import BaseWorkspaceGenerator from '@sektek/generator-base/generators/workspace';
 
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
 import { BaseOptions } from '../../lib/types/base-options.js';
+import { EslintGenerator } from '../eslint/index.js';
+import { GitConfigGenerator } from '../gitconfig/index.js';
 
 const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
@@ -24,11 +26,25 @@ const WORKSPACE_DIRS = ['apps', 'libs', 'tools'];
 
 export const BUILD_SCRIPT = 'npm run build --workspaces --if-present';
 
+const COMPOSITES = [
+  { name: '@sektek/base:workspace', generatorClass: BaseWorkspaceGenerator },
+  { name: 'gitconfig', generatorClass: GitConfigGenerator },
+  { name: 'eslint', generatorClass: EslintGenerator },
+] satisfies Composite[];
+
 export class WorkspaceGenerator extends BaseGenerator<
   BaseConfig,
   BaseOptions,
   BaseFeatures
 > {
+  static composites(): Composite[] {
+    return COMPOSITES;
+  }
+
+  static destinationMode(): DestinationMode {
+    return { kind: 'newProjectDir' };
+  }
+
   constructor(
     args: string[],
     options: BaseOptions,
