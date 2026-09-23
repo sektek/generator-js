@@ -1,4 +1,4 @@
-import { Composite, DestinationMode, Prompt } from '@sektek/generator';
+import { Composite, DestinationMode } from '@sektek/generator';
 import BaseWorkspaceGenerator from '@sektek/generator-base/generators/workspace';
 
 import { BaseConfig } from '../../lib/types/base-config.js';
@@ -39,10 +39,6 @@ export class WorkspaceGenerator extends BaseGenerator<
 > {
   static composites(): Composite[] {
     return COMPOSITES;
-  }
-
-  static prompts(): Prompt[] {
-    return COMPOSITES.flatMap(({ generatorClass }) => generatorClass.prompts());
   }
 
   static destinationMode(): DestinationMode {

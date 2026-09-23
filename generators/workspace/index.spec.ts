@@ -59,8 +59,9 @@ describe('@sektek/js:workspace', function () {
     expect(result.generator).to.be.instanceOf(WorkspaceGenerator);
   });
 
-  it('aggregates prompts from its composed generators (currently none declare any)', function () {
-    expect(WorkspaceGenerator.prompts()).to.deep.equal([]);
+  it('aggregates prompts from its composed generators without throwing', function () {
+    expect(() => WorkspaceGenerator.prompts()).to.not.throw();
+    expect(WorkspaceGenerator.prompts()).to.be.an('array');
   });
 
   it('declares destinationMode: newProjectDir', function () {

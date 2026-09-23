@@ -1,4 +1,4 @@
-import { Composite, DestinationMode, Prompt } from '@sektek/generator';
+import { Composite, DestinationMode } from '@sektek/generator';
 import BaseAppGenerator from '@sektek/generator-base/generators/app';
 import BaseDevcontainerGenerator from '@sektek/generator-base/generators/devcontainer';
 
@@ -36,10 +36,6 @@ export class AppGenerator extends BaseGenerator<
 > {
   static composites(): Composite[] {
     return COMPOSITES;
-  }
-
-  static prompts(): Prompt[] {
-    return COMPOSITES.flatMap(({ generatorClass }) => generatorClass.prompts());
   }
 
   static destinationMode(): DestinationMode {
