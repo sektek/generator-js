@@ -94,6 +94,18 @@ describe('@sektek/js:app', function () {
     expect(result.generator).to.be.instanceOf(AppGenerator);
   });
 
+  it('aggregates prompts from its composed generators, including the shared authorPrompt', function () {
+    const prompts = AppGenerator.prompts();
+    expect(prompts).to.not.be.empty;
+    expect(prompts.map(p => p.name)).to.include('author');
+  });
+
+  it('declares destinationMode: newProjectDir', function () {
+    expect(AppGenerator.destinationMode()).to.deep.equal({
+      kind: 'newProjectDir',
+    });
+  });
+
   it('composes @sektek/base (editorconfig, gitconfig, readme)', async function () {
     const { fs } = await run();
     expect(fs.exists('.editorconfig')).to.be.true;

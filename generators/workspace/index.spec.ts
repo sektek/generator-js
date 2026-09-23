@@ -59,6 +59,22 @@ describe('@sektek/js:workspace', function () {
     expect(result.generator).to.be.instanceOf(WorkspaceGenerator);
   });
 
+  it('aggregates prompts from its composed generators (currently none declare any)', function () {
+    // Unlike AppGenerator, nothing in workspace's compose chain
+    // (@sektek/base:workspace's editorconfig/gitconfig/readme/devcontainer,
+    // or the local gitconfig/eslint) declares real prompts yet — an empty
+    // array here is correct, not a sign composites()/prompts() are broken.
+    // This test exists to catch a regression (a thrown error, or dropping
+    // composites() entries), not to assert non-emptiness.
+    expect(WorkspaceGenerator.prompts()).to.deep.equal([]);
+  });
+
+  it('declares destinationMode: newProjectDir', function () {
+    expect(WorkspaceGenerator.destinationMode()).to.deep.equal({
+      kind: 'newProjectDir',
+    });
+  });
+
   it('composes @sektek/base:workspace (devcontainer, vscode, readme checklist)', async function () {
     const { fs } = await run();
     expect(fs.exists('.devcontainer/devcontainer.json')).to.be.true;
