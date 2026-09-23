@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.1](https://github.com/sektek/generator-js/compare/v0.8.0...v0.8.1) (2026-09-23)
+
+### Bug Fixes
+
+* **generator-js): app/workspace declare real composites() + destinationMode(:** newProjectDir ([#13](https://github.com/sektek/generator-js/issues/13)) ([8d5cd2f](https://github.com/sektek/generator-js/commit/8d5cd2f7d4f932bd73c8ce8fdb4b4d54d2e102b1))
+
 ## [0.8.0](https://github.com/sektek/generator-js/compare/v0.7.0...v0.8.0) (2026-09-19)
 
 ### Features
