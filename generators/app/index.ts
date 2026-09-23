@@ -15,10 +15,8 @@ const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
 };
 
-// Unconditionally composed, regardless of language/testFramework.
-// typescript/mocha/vitest are conditional on those options and can't be
-// named here (composites() takes no options context) — they stay
-// hand-composed in taskInitializing below, same as before this refactor.
+// typescript/mocha/vitest are conditional on language/testFramework, so
+// they stay hand-composed in taskInitializing below instead of here.
 const COMPOSITES = [
   { name: '@sektek/base:app', generatorClass: BaseAppGenerator },
   { name: 'gitconfig', generatorClass: GitConfigGenerator },

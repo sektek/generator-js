@@ -60,12 +60,6 @@ describe('@sektek/js:workspace', function () {
   });
 
   it('aggregates prompts from its composed generators (currently none declare any)', function () {
-    // Unlike AppGenerator, nothing in workspace's compose chain
-    // (@sektek/base:workspace's editorconfig/gitconfig/readme/devcontainer,
-    // or the local gitconfig/eslint) declares real prompts yet — an empty
-    // array here is correct, not a sign composites()/prompts() are broken.
-    // This test exists to catch a regression (a thrown error, or dropping
-    // composites() entries), not to assert non-emptiness.
     expect(WorkspaceGenerator.prompts()).to.deep.equal([]);
   });
 

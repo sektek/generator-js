@@ -26,8 +26,6 @@ const WORKSPACE_DIRS = ['apps', 'libs', 'tools'];
 
 export const BUILD_SCRIPT = 'npm run build --workspaces --if-present';
 
-// All unconditional — workspace has no language/testFramework-gated
-// composition the way app does.
 const COMPOSITES = [
   { name: '@sektek/base:workspace', generatorClass: BaseWorkspaceGenerator },
   { name: 'gitconfig', generatorClass: GitConfigGenerator },
