@@ -15,10 +15,6 @@ const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
 };
 
-// typescript/mocha/vitest are conditional on language/testFramework, so
-// they stay hand-composed in taskInitializing below instead of here.
-// Otherwise identical to AppGenerator's composed set — destinationMode()
-// below is the only real difference between a lib and an app.
 const COMPOSITES = [
   { name: '@sektek/base:app', generatorClass: BaseAppGenerator },
   { name: 'gitconfig', generatorClass: GitConfigGenerator },
