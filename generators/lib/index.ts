@@ -17,12 +17,8 @@ const DEFAULT_FEATURES: Partial<BaseFeatures> = {
 
 // typescript/mocha/vitest are conditional on language/testFramework, so
 // they stay hand-composed in taskInitializing below instead of here.
-//
-// Same composed set as AppGenerator: nothing here (editorconfig, git,
-// license, readme, devcontainer, config, package.json, eslint,
-// dependencies) is actually app-specific — a library needs the same base
-// project scaffolding a CLI app does. The only real difference is
-// destinationMode()'s subdir below.
+// Otherwise identical to AppGenerator's composed set — destinationMode()
+// below is the only real difference between a lib and an app.
 const COMPOSITES = [
   { name: '@sektek/base:app', generatorClass: BaseAppGenerator },
   { name: 'gitconfig', generatorClass: GitConfigGenerator },
