@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.0](https://github.com/sektek/generator-js/compare/v0.8.1...v0.9.0) (2026-09-24)
+
+### Features
+
+* **generator-js:** js:lib generator (destinationMode newProjectDir, subdir 'libs') ([#14](https://github.com/sektek/generator-js/issues/14)) ([d551e4e](https://github.com/sektek/generator-js/commit/d551e4eb29ddb5681a76511ed32a6d078630b15d))
+
 ## [0.8.1](https://github.com/sektek/generator-js/compare/v0.8.0...v0.8.1) (2026-09-23)
 
 ### Bug Fixes
