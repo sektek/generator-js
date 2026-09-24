@@ -23,6 +23,10 @@ JS/TS project generator for scaffolding new SEKTEK projects, driven by
   supported, e.g. `'@scope/name@1.2.3'`) to `package.json`. Not prompted for interactively —
   CLI/config-file only.
 - `gitconfig` — composes `@sektek/base:gitconfig`, then layers JS-specific `.gitignore` rules.
+- `lib` — a library variant of `app`: identical composition (same sub-generators, same
+  `testFramework`/`language` handling), but `destinationMode()` targets `libs/<project>` when run
+  inside an npm workspace whose `workspaces` field includes `libs/*`, or `./<project>` standalone
+  otherwise — same fallback `app` uses when it isn't nested in a workspace.
 - `typescript` — writes `tsconfig.json`/`tsconfig.build.json` (its `compilerOptions.types`
   reflects `testFramework`) and a TS entrypoint (likewise no test file of its own).
 - `eslint` — writes `eslint.config.js`, composing `prettier`.

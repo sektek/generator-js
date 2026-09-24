@@ -3,6 +3,7 @@ export const GENERATORS = [
   'base-package',
   'dependencies',
   'gitconfig',
+  'lib',
   'typescript',
   'eslint',
   'prettier',
