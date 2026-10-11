@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/sektek/generator-js/compare/v0.12.1...v0.13.0) (2026-10-11)
+
+### Features
+
+* **generator-js:** shared languagePrompt ([#19](https://github.com/sektek/generator-js/issues/19)) ([ae7158c](https://github.com/sektek/generator-js/commit/ae7158ce6b9e8142f2954702bb4fcdd7686700bd))
+* **generator-js:** shared testFrameworkPrompt ([#20](https://github.com/sektek/generator-js/issues/20)) ([b43a32e](https://github.com/sektek/generator-js/commit/b43a32ed1945fa3c57b7321ff863207d534e65bb))
+
 ## [0.12.1](https://github.com/sektek/generator-js/compare/v0.12.0...v0.12.1) (2026-10-11)
 
 ### Bug Fixes
