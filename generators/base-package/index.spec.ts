@@ -25,6 +25,19 @@ const runIn = async (dirName: string, options: Record<string, unknown>) => {
 };
 
 describe('@sektek/js:base-package', function () {
+  it('declares every prompt it reads, in wizard order', function () {
+    expect(BasePackageGenerator.prompts().map(p => p.name)).to.deep.equal([
+      'description',
+      'language',
+      'author',
+      'license',
+      'private',
+      'packageScope',
+      'dependencies',
+      'devDependencies',
+    ]);
+  });
+
   it('generates using BasePackageGenerator', async function () {
     const result = await helper
       .run(generator)

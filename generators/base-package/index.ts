@@ -1,5 +1,13 @@
-import { Prompt, authorPrompt } from '@sektek/generator';
+import { Prompt, authorPrompt, descriptionPrompt } from '@sektek/generator';
+import { licensePrompt } from '@sektek/generator-base';
 
+import {
+  dependenciesPrompt,
+  devDependenciesPrompt,
+  languagePrompt,
+  packageScopePrompt,
+  privatePrompt,
+} from '../../lib/prompts/index.js';
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
@@ -19,7 +27,16 @@ export class BasePackageGenerator extends BaseGenerator<
   BaseFeatures
 > {
   static prompts(): Prompt[] {
-    return [authorPrompt];
+    return [
+      descriptionPrompt,
+      languagePrompt,
+      authorPrompt,
+      licensePrompt,
+      privatePrompt,
+      packageScopePrompt,
+      dependenciesPrompt,
+      devDependenciesPrompt,
+    ];
   }
 
   constructor(
