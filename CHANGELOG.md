@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.1](https://github.com/sektek/generator-js/compare/v0.12.0...v0.12.1) (2026-10-11)
+
+### Bug Fixes
+
+* **generator-js:** bump @sektek/generator and @sektek/generator-base to the releases with the new prompts ([#18](https://github.com/sektek/generator-js/issues/18)) ([b2e2f40](https://github.com/sektek/generator-js/commit/b2e2f40ffccec54185a8a21f969a57875dacd413))
+
 ## [0.12.0](https://github.com/sektek/generator-js/compare/v0.11.0...v0.12.0) (2026-10-11)
 
 ### Features
