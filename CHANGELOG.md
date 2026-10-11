@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.0](https://github.com/sektek/generator-js/compare/v0.11.0...v0.12.0) (2026-10-11)
+
+### Features
+
+* **generator-js:** packageScopePrompt derives the default npm scope ([#17](https://github.com/sektek/generator-js/issues/17)) ([ad8f95d](https://github.com/sektek/generator-js/commit/ad8f95d1dd9d7f10626b2ba091bcecf1b77b6286))
+
 ## [0.11.0](https://github.com/sektek/generator-js/compare/v0.10.0...v0.11.0) (2026-10-11)
 
 ### Features
