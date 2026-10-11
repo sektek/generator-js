@@ -35,6 +35,7 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
       ],
       [generatorBasePath('gitconfig'), { namespace: '@sektek/base:gitconfig' }],
       [generatorBasePath('readme'), { namespace: '@sektek/base:readme' }],
+      [generatorBasePath('config'), { namespace: '@sektek/base:config' }],
       [
         generatorBasePath('devcontainer'),
         { namespace: '@sektek/base:devcontainer' },
