@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.0](https://github.com/sektek/generator-js/compare/v0.9.0...v0.10.0) (2026-10-10)
+
+### Features
+
+* **generator-js:** dependencies and devDependencies list prompts ([#16](https://github.com/sektek/generator-js/issues/16)) ([e355f24](https://github.com/sektek/generator-js/commit/e355f245df556d8f687f7fae07b7ac3adbbd899b))
+
 ## [0.9.0](https://github.com/sektek/generator-js/compare/v0.8.1...v0.9.0) (2026-09-24)
 
 ### Features
