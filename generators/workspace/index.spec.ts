@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
+import { projectNamePrompt } from '@sektek/generator';
 
 import { WorkspaceGenerator } from './index.js';
 
@@ -63,6 +64,25 @@ describe('@sektek/js:workspace', function () {
   it('aggregates prompts from its composed generators without throwing', function () {
     expect(() => WorkspaceGenerator.prompts()).to.not.throw();
     expect(WorkspaceGenerator.prompts()).to.be.an('array');
+  });
+
+  it('declares its own prompts ahead of the composed ones', function () {
+    const prompts = WorkspaceGenerator.prompts();
+    const names = prompts.map(prompt => prompt.name);
+    const composed = WorkspaceGenerator.composites().flatMap(
+      ({ generatorClass }) =>
+        generatorClass.prompts().map(prompt => prompt.name),
+    );
+    expect(prompts[0]).to.equal(projectNamePrompt);
+    expect(names).to.deep.equal([
+      'projectName',
+      'language',
+      'license',
+      'private',
+      'dependencies',
+      'devDependencies',
+      ...composed,
+    ]);
   });
 
   it('declares destinationMode: newProjectDir', function () {
