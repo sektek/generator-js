@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.11.0](https://github.com/sektek/generator-js/compare/v0.10.0...v0.11.0) (2026-10-11)
+
+### Features
+
+* **generator-js:** shared privatePrompt gated off for UNLICENSED ([#15](https://github.com/sektek/generator-js/issues/15)) ([4a0559d](https://github.com/sektek/generator-js/commit/4a0559d5f7310c8b53136aed3ec86a3c3a8232a0))
+
 ## [0.10.0](https://github.com/sektek/generator-js/compare/v0.9.0...v0.10.0) (2026-10-10)
 
 ### Features
