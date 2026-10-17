@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.16.0](https://github.com/sektek/generator-js/compare/v0.15.1...v0.16.0) (2026-10-17)
+
+### Features
+
+* **generator-js:** app declares language, testFramework and dependency prompts ([#24](https://github.com/sektek/generator-js/issues/24)) ([e944f79](https://github.com/sektek/generator-js/commit/e944f79825aa4e9f52e38d1d3e98f8ba5b728e98))
+
 ## [0.15.1](https://github.com/sektek/generator-js/compare/v0.15.0...v0.15.1) (2026-10-17)
 
 ### Bug Fixes
