@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.0](https://github.com/sektek/generator-js/compare/v0.14.0...v0.15.0) (2026-10-17)
+
+### Features
+
+* **generator-js:** base-package declares the prompts it reads ([#21](https://github.com/sektek/generator-js/issues/21)) ([27cfff7](https://github.com/sektek/generator-js/commit/27cfff737b7a3600c78c5b112f8814bf08b7727d))
+
 ## [0.14.0](https://github.com/sektek/generator-js/compare/v0.13.0...v0.14.0) (2026-10-17)
 
 ### Features
