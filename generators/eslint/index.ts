@@ -1,9 +1,12 @@
 import '../prettier/index.js';
 
+import { Prompt } from '@sektek/generator';
+
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
 import { BaseOptions } from '../../lib/types/base-options.js';
+import { languagePrompt } from '../../lib/prompts/index.js';
 
 const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
@@ -20,6 +23,10 @@ export class EslintGenerator extends BaseGenerator<
   BaseOptions,
   BaseFeatures
 > {
+  static prompts(): Prompt[] {
+    return [languagePrompt];
+  }
+
   constructor(
     args: string[],
     options: BaseOptions,

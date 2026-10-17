@@ -1,7 +1,10 @@
+import { Prompt } from '@sektek/generator';
+
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
 import { BaseOptions } from '../../lib/types/base-options.js';
+import { testFrameworkPrompt } from '../../lib/prompts/index.js';
 
 const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
@@ -42,6 +45,10 @@ export class TypescriptGenerator extends BaseGenerator<
   BaseOptions,
   BaseFeatures
 > {
+  static prompts(): Prompt[] {
+    return [testFrameworkPrompt];
+  }
+
   constructor(
     args: string[],
     options: BaseOptions,

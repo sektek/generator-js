@@ -1,3 +1,9 @@
+import { Prompt } from '@sektek/generator';
+
+import {
+  dependenciesPrompt,
+  devDependenciesPrompt,
+} from '../../lib/prompts/index.js';
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
@@ -13,6 +19,10 @@ export class DependenciesGenerator extends BaseGenerator<
   BaseOptions,
   BaseFeatures
 > {
+  static prompts(): Prompt[] {
+    return [dependenciesPrompt, devDependenciesPrompt];
+  }
+
   constructor(
     args: string[],
     options: BaseOptions,

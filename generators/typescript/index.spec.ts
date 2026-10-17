@@ -11,6 +11,12 @@ const __dirname = dirname(__filename);
 const generator = join(__dirname, 'index.js');
 
 describe('@sektek/js:typescript', function () {
+  it('declares exactly the prompts it reads', function () {
+    expect(
+      TypescriptGenerator.prompts().map(prompt => prompt.name),
+    ).to.deep.equal(['testFramework']);
+  });
+
   it('generates using TypescriptGenerator', async function () {
     const result = await helper
       .run(generator)

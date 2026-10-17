@@ -13,6 +13,12 @@ const __dirname = dirname(__filename);
 const generator = join(__dirname, 'index.js');
 
 describe('@sektek/js:dependencies', function () {
+  it('declares exactly the prompts it reads', function () {
+    expect(
+      DependenciesGenerator.prompts().map(prompt => prompt.name),
+    ).to.deep.equal(['dependencies', 'devDependencies']);
+  });
+
   it('generates using DependenciesGenerator', async function () {
     const result = await helper
       .run(generator)
