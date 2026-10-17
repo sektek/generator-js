@@ -83,6 +83,7 @@ describe('@sektek/js:workspace', function () {
       'devDependencies',
       ...composed,
     ]);
+    expect(names).to.include('profile');
   });
 
   it('declares destinationMode: newProjectDir', function () {
