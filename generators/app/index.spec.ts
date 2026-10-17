@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
 
+import { BasePackageGenerator } from '../base-package/index.js';
+
 import { AppGenerator } from './index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -98,6 +100,15 @@ describe('@sektek/js:app', function () {
     const prompts = AppGenerator.prompts();
     expect(prompts).to.not.be.empty;
     expect(prompts.map(p => p.name)).to.include('author');
+  });
+
+  it('includes each base-package prompt, deduping to one shared definition per name', function () {
+    const prompts = AppGenerator.prompts();
+    BasePackageGenerator.prompts().forEach(prompt => {
+      const matches = prompts.filter(p => p.name === prompt.name);
+      expect(matches).to.not.be.empty;
+      expect(new Set(matches)).to.have.lengthOf(1);
+    });
   });
 
   it('declares destinationMode: newProjectDir', function () {
