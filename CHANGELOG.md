@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.14.0](https://github.com/sektek/generator-js/compare/v0.13.0...v0.14.0) (2026-10-17)
+
+### Features
+
+* **generator-js:** workspace declares language, license, private and dependency prompts ([#22](https://github.com/sektek/generator-js/issues/22)) ([d6fc05b](https://github.com/sektek/generator-js/commit/d6fc05b819573a6ca0b3a09285137923bc434f2e))
+
 ## [0.13.0](https://github.com/sektek/generator-js/compare/v0.12.1...v0.13.0) (2026-10-11)
 
 ### Features
