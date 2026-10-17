@@ -1,7 +1,18 @@
-import { Composite, DestinationMode } from '@sektek/generator';
+import {
+  Composite,
+  DestinationMode,
+  Prompt,
+  projectNamePrompt,
+} from '@sektek/generator';
 import BaseAppGenerator from '@sektek/generator-base/generators/app';
 import BaseDevcontainerGenerator from '@sektek/generator-base/generators/devcontainer';
 
+import {
+  dependenciesPrompt,
+  devDependenciesPrompt,
+  languagePrompt,
+  testFrameworkPrompt,
+} from '../../lib/prompts/index.js';
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
@@ -34,6 +45,17 @@ export class AppGenerator extends BaseGenerator<
   BaseOptions,
   BaseFeatures
 > {
+  static prompts(): Prompt[] {
+    return [
+      projectNamePrompt,
+      languagePrompt,
+      testFrameworkPrompt,
+      dependenciesPrompt,
+      devDependenciesPrompt,
+      ...super.prompts(),
+    ];
+  }
+
   static composites(): Composite[] {
     return COMPOSITES;
   }
