@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
+import { projectNamePrompt } from '@sektek/generator';
 
 import { BasePackageGenerator } from '../base-package/index.js';
 
@@ -100,6 +101,24 @@ describe('@sektek/js:app', function () {
     const prompts = AppGenerator.prompts();
     expect(prompts).to.not.be.empty;
     expect(prompts.map(p => p.name)).to.include('author');
+  });
+
+  it('declares its own prompts ahead of the composed ones', function () {
+    const prompts = AppGenerator.prompts();
+    const names = prompts.map(prompt => prompt.name);
+    const composed = AppGenerator.composites().flatMap(({ generatorClass }) =>
+      generatorClass.prompts().map(prompt => prompt.name),
+    );
+    expect(prompts[0]).to.equal(projectNamePrompt);
+    expect(names).to.deep.equal([
+      'projectName',
+      'language',
+      'testFramework',
+      'dependencies',
+      'devDependencies',
+      ...composed,
+    ]);
+    expect(names).to.include.members(['author', 'gitInit', 'createRepo']);
   });
 
   it('includes each base-package prompt, deduping to one shared definition per name', function () {
