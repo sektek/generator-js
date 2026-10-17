@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
+import { projectNamePrompt } from '@sektek/generator';
 
 import { LibGenerator } from './index.js';
 
@@ -79,6 +80,24 @@ describe('@sektek/js:lib', function () {
       kind: 'newProjectDir',
       subdir: 'libs',
     });
+  });
+
+  it('declares its own prompts ahead of the composed ones', function () {
+    const prompts = LibGenerator.prompts();
+    const names = prompts.map(prompt => prompt.name);
+    const composed = LibGenerator.composites().flatMap(({ generatorClass }) =>
+      generatorClass.prompts().map(prompt => prompt.name),
+    );
+    expect(prompts[0]).to.equal(projectNamePrompt);
+    expect(names).to.deep.equal([
+      'projectName',
+      'language',
+      'testFramework',
+      'dependencies',
+      'devDependencies',
+      ...composed,
+    ]);
+    expect(names).to.include.members(['author', 'gitInit']);
   });
 
   it('composes @sektek/base (editorconfig, gitconfig, readme)', async function () {
