@@ -11,6 +11,12 @@ const __dirname = dirname(__filename);
 const generator = join(__dirname, 'index.js');
 
 describe('@sektek/js:mocha', function () {
+  it('declares exactly the prompts it reads', function () {
+    expect(MochaGenerator.prompts().map(prompt => prompt.name)).to.deep.equal([
+      'language',
+    ]);
+  });
+
   it('generates using MochaGenerator', async function () {
     const result = await helper
       .run(generator)
