@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.1](https://github.com/sektek/generator-js/compare/v0.17.0...v0.17.1) (2026-10-18)
+
+### Bug Fixes
+
+* **generator-js:** bump @sektek/generator-base to the release with the projectName prompts ([#28](https://github.com/sektek/generator-js/issues/28)) ([49b85ca](https://github.com/sektek/generator-js/commit/49b85ca7a31431796abad3147e28418245bac17c))
+
 ## [0.17.0](https://github.com/sektek/generator-js/compare/v0.16.0...v0.17.0) (2026-10-18)
 
 ### Features
