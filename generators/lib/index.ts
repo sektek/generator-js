@@ -1,30 +1,19 @@
 import { Composite, DestinationMode } from '@sektek/generator';
-import BaseAppGenerator from '@sektek/generator-base/generators/app';
-import BaseDevcontainerGenerator from '@sektek/generator-base/generators/devcontainer';
 
+import { AppGenerator } from '../app/index.js';
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
 import { BaseOptions } from '../../lib/types/base-options.js';
-import { BasePackageGenerator } from '../base-package/index.js';
-import { DependenciesGenerator } from '../dependencies/index.js';
-import { EslintGenerator } from '../eslint/index.js';
-import { GitConfigGenerator } from '../gitconfig/index.js';
 
 const DEFAULT_FEATURES: Partial<BaseFeatures> = {
   unique: true,
 };
 
+// A library is an app scaffolded under `libs/<name>`: everything it composes
+// (and every prompt it needs) comes from `app`, so only the destination differs.
 const COMPOSITES = [
-  { name: '@sektek/base:app', generatorClass: BaseAppGenerator },
-  { name: 'gitconfig', generatorClass: GitConfigGenerator },
-  {
-    name: '@sektek/base:devcontainer',
-    generatorClass: BaseDevcontainerGenerator,
-  },
-  { name: 'base-package', generatorClass: BasePackageGenerator },
-  { name: 'eslint', generatorClass: EslintGenerator },
-  { name: 'dependencies', generatorClass: DependenciesGenerator },
+  { name: 'app', generatorClass: AppGenerator },
 ] satisfies Composite[];
 
 export class LibGenerator extends BaseGenerator<
@@ -49,29 +38,7 @@ export class LibGenerator extends BaseGenerator<
   }
 
   async taskInitializing() {
-    const { options } = this;
-    const { language, testFramework } = options;
-
-    await this.composeWith('@sektek/base:app', options, true);
-    await this.composeWith('gitconfig', options, true);
-    await this.composeWith('@sektek/base:devcontainer', options, true);
-    await this.composeWith('base-package', options, true);
-
-    if (language === 'typescript') {
-      await this.composeWith('typescript', options, true);
-    }
-
-    await this.composeWith('eslint', options, true);
-
-    if (testFramework === 'vitest') {
-      await this.composeWith('vitest', options, true);
-    } else if (testFramework !== 'none') {
-      // Covers 'mocha' and the undefined/unset default alike.
-      await this.composeWith('mocha', options, true);
-    }
-
-    // Add dependencies last to preserve user selected versions
-    await this.composeWith('dependencies', options, true);
+    await this.composeWith('app', this.options, true);
   }
 }
 
