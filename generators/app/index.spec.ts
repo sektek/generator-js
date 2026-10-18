@@ -114,10 +114,9 @@ describe('@sektek/js:app', function () {
       'projectName',
       'language',
       'testFramework',
-      'dependencies',
-      'devDependencies',
       ...composed,
     ]);
+    expect(names).to.include.members(['dependencies', 'devDependencies']);
     expect(names).to.include.members(['author', 'gitInit', 'createRepo']);
   });
 
