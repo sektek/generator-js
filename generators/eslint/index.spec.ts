@@ -24,6 +24,12 @@ const run = (options: Record<string, unknown>) =>
     ]);
 
 describe('@sektek/js:eslint', function () {
+  it('declares exactly the prompts it reads', function () {
+    expect(EslintGenerator.prompts().map(prompt => prompt.name)).to.deep.equal([
+      'language',
+    ]);
+  });
+
   it('generates using EslintGenerator', async function () {
     const result = await run({ language: 'javascript' });
     expect(result.generator).to.be.instanceOf(EslintGenerator);
