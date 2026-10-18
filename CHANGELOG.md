@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/sektek/generator-js/compare/v0.16.0...v0.17.0) (2026-10-18)
+
+### Features
+
+* **generator-js:** leaf generators declare the prompts they read ([#26](https://github.com/sektek/generator-js/issues/26)) ([47501d0](https://github.com/sektek/generator-js/commit/47501d07fd366a151f902fdbe2c2fbcd706673ab))
+* **generator-js:** lib composes js:app and inherits its prompts ([#25](https://github.com/sektek/generator-js/issues/25)) ([b7aef67](https://github.com/sektek/generator-js/commit/b7aef6793c9b80749aaee66c6a68ef0df780f0d4))
+
 ## [0.16.0](https://github.com/sektek/generator-js/compare/v0.15.1...v0.16.0) (2026-10-17)
 
 ### Features
