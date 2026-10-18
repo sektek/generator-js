@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
 
+import { AppGenerator } from '../app/index.js';
+
 import { LibGenerator } from './index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +24,7 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
     .run(generator)
     .withOptions({ gitInit: false, ...options })
     .withGenerators([
+      [join(__dirname, '../app/index.js'), { namespace: '@sektek/js:app' }],
       [generatorBasePath('app'), { namespace: '@sektek/base:app' }],
       [
         generatorBasePath('editorconfig'),
@@ -79,6 +82,16 @@ describe('@sektek/js:lib', function () {
       kind: 'newProjectDir',
       subdir: 'libs',
     });
+  });
+
+  it('composes js:app and so exposes exactly its prompts', function () {
+    expect(LibGenerator.composites().map(c => c.generatorClass)).to.deep.equal([
+      AppGenerator,
+    ]);
+    expect(LibGenerator.prompts().map(p => p.name)).to.deep.equal(
+      AppGenerator.prompts().map(p => p.name),
+    );
+    expect(LibGenerator.prompts()[0]).to.equal(AppGenerator.prompts()[0]);
   });
 
   it('composes @sektek/base (editorconfig, gitconfig, readme)', async function () {
