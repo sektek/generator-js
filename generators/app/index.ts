@@ -8,8 +8,6 @@ import BaseAppGenerator from '@sektek/generator-base/generators/app';
 import BaseDevcontainerGenerator from '@sektek/generator-base/generators/devcontainer';
 
 import {
-  dependenciesPrompt,
-  devDependenciesPrompt,
   languagePrompt,
   testFrameworkPrompt,
 } from '../../lib/prompts/index.js';
@@ -50,8 +48,6 @@ export class AppGenerator extends BaseGenerator<
       projectNamePrompt,
       languagePrompt,
       testFrameworkPrompt,
-      dependenciesPrompt,
-      devDependenciesPrompt,
       ...super.prompts(),
     ];
   }
