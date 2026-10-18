@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.2](https://github.com/sektek/generator-js/compare/v0.17.1...v0.17.2) (2026-10-18)
+
+### Bug Fixes
+
+* **generator-js:** bump @sektek/generator-base to the release where workspace composes its prompts ([#29](https://github.com/sektek/generator-js/issues/29)) ([7e17001](https://github.com/sektek/generator-js/commit/7e170016f875fd2afd52fe4e5696d36960421e2d))
+
 ## [0.17.1](https://github.com/sektek/generator-js/compare/v0.17.0...v0.17.1) (2026-10-18)
 
 ### Bug Fixes
