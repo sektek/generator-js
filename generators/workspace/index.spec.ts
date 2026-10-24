@@ -36,6 +36,7 @@ const run = (options: Record<string, unknown> = { language: 'javascript' }) =>
       ],
       [generatorBasePath('gitconfig'), { namespace: '@sektek/base:gitconfig' }],
       [generatorBasePath('readme'), { namespace: '@sektek/base:readme' }],
+      [generatorBasePath('license'), { namespace: '@sektek/base:license' }],
       [generatorBasePath('config'), { namespace: '@sektek/base:config' }],
       [
         generatorBasePath('devcontainer'),
@@ -100,6 +101,17 @@ describe('@sektek/js:workspace', function () {
     );
     expect(fs.exists('.vscode/settings.json')).to.be.true;
     expect(fs.read('README.md')).to.include('## Changes Required');
+  });
+
+  it('writes a LICENSE file for --license MIT', async function () {
+    const { fs } = await run({ language: 'javascript', license: 'MIT' });
+    expect(fs.read('LICENSE')).to.include('MIT License');
+    expect(JSON.parse(fs.read('package.json')).license).to.equal('MIT');
+  });
+
+  it('writes no LICENSE file for --license UNLICENSED', async function () {
+    const { fs } = await run({ language: 'javascript', license: 'UNLICENSED' });
+    expect(fs.exists('LICENSE')).to.be.false;
   });
 
   it('layers JS-specific gitignore rules on top of the base gitignore', async function () {

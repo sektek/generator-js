@@ -4,6 +4,7 @@ import {
   Prompt,
   projectNamePrompt,
 } from '@sektek/generator';
+import BaseLicenseGenerator from '@sektek/generator-base/generators/license';
 import BaseWorkspaceGenerator from '@sektek/generator-base/generators/workspace';
 import { licensePrompt } from '@sektek/generator-base';
 
@@ -40,6 +41,7 @@ export const BUILD_SCRIPT = 'npm run build --workspaces --if-present';
 
 const COMPOSITES = [
   { name: '@sektek/base:workspace', generatorClass: BaseWorkspaceGenerator },
+  { name: '@sektek/base:license', generatorClass: BaseLicenseGenerator },
   { name: 'gitconfig', generatorClass: GitConfigGenerator },
   { name: 'eslint', generatorClass: EslintGenerator },
 ] satisfies Composite[];
@@ -85,6 +87,7 @@ export class WorkspaceGenerator extends BaseGenerator<
   }
 
   async taskInitializing() {
+    await this.composeWith('@sektek/base:license', this.options, true);
     await this.composeWith('gitconfig', this.options, true);
     await this.composeWith('eslint', this.options, true);
   }
