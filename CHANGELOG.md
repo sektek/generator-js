@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.4](https://github.com/sektek/generator-js/compare/v0.17.3...v0.17.4) (2026-10-24)
+
+### Bug Fixes
+
+* **generator-js:** workspace --license writes the license into package.json but no LICENSE file ([#32](https://github.com/sektek/generator-js/issues/32)) ([6876cd7](https://github.com/sektek/generator-js/commit/6876cd73b068a8940bcba24064c3d3984d34f680))
+
 ## [0.17.3](https://github.com/sektek/generator-js/compare/v0.17.2...v0.17.3) (2026-10-24)
 
 ### Bug Fixes
