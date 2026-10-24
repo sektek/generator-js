@@ -1,9 +1,9 @@
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
+import { authorPrompt, projectNamePrompt } from '@sektek/generator';
 import { expect } from 'chai';
 import { helper } from '@sektek/generator-test';
-import { projectNamePrompt } from '@sektek/generator';
 
 import { WorkspaceGenerator } from './index.js';
 
@@ -81,8 +81,10 @@ describe('@sektek/js:workspace', function () {
       'private',
       'dependencies',
       'devDependencies',
+      'author',
       ...composed,
     ]);
+    expect(prompts).to.include(authorPrompt);
     expect(names).to.include('profile');
   });
 
