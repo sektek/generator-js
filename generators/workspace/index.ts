@@ -2,6 +2,7 @@ import {
   Composite,
   DestinationMode,
   Prompt,
+  authorPrompt,
   projectNamePrompt,
 } from '@sektek/generator';
 import BaseWorkspaceGenerator from '@sektek/generator-base/generators/workspace';
@@ -57,6 +58,7 @@ export class WorkspaceGenerator extends BaseGenerator<
       privatePrompt,
       dependenciesPrompt,
       devDependenciesPrompt,
+      authorPrompt,
       ...super.prompts(),
     ];
   }
