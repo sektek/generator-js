@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.3](https://github.com/sektek/generator-js/compare/v0.17.2...v0.17.3) (2026-10-24)
+
+### Bug Fixes
+
+* **generator-js:** workspace reads author but declares no author prompt ([#30](https://github.com/sektek/generator-js/issues/30)) ([47d9bb7](https://github.com/sektek/generator-js/commit/47d9bb75712532c189b714c3f725f2d974dbdc65))
+
 ## [0.17.2](https://github.com/sektek/generator-js/compare/v0.17.1...v0.17.2) (2026-10-18)
 
 ### Bug Fixes
