@@ -9,12 +9,7 @@ import BaseLicenseGenerator from '@sektek/generator-base/generators/license';
 import BaseWorkspaceGenerator from '@sektek/generator-base/generators/workspace';
 import { licensePrompt } from '@sektek/generator-base';
 
-import {
-  dependenciesPrompt,
-  devDependenciesPrompt,
-  languagePrompt,
-  privatePrompt,
-} from '../../lib/prompts/index.js';
+import { languagePrompt, privatePrompt } from '../../lib/prompts/index.js';
 import { BaseConfig } from '../../lib/types/base-config.js';
 import { BaseFeatures } from '../../lib/types/base-features.js';
 import { BaseGenerator } from '../../lib/base-generator.js';
@@ -58,8 +53,6 @@ export class WorkspaceGenerator extends BaseGenerator<
       languagePrompt,
       licensePrompt,
       privatePrompt,
-      dependenciesPrompt,
-      devDependenciesPrompt,
       authorPrompt,
       ...super.prompts(),
     ];

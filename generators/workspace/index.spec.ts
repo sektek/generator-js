@@ -80,13 +80,13 @@ describe('@sektek/js:workspace', function () {
       'language',
       'license',
       'private',
-      'dependencies',
-      'devDependencies',
       'author',
       ...composed,
     ]);
     expect(prompts).to.include(authorPrompt);
     expect(names).to.include('profile');
+    expect(names).to.not.include('dependencies');
+    expect(names).to.not.include('devDependencies');
   });
 
   it('declares destinationMode: newProjectDir', function () {
