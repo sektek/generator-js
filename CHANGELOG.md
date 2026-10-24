@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.5](https://github.com/sektek/generator-js/compare/v0.17.4...v0.17.5) (2026-10-24)
+
+### Bug Fixes
+
+* **generator-js:** workspace accepts --dependency and --dev-dependency but never applies them ([#31](https://github.com/sektek/generator-js/issues/31)) ([e2c3128](https://github.com/sektek/generator-js/commit/e2c3128aa34dbb7bc56b3d3e97baf2d9948ea6a2))
+
 ## [0.17.4](https://github.com/sektek/generator-js/compare/v0.17.3...v0.17.4) (2026-10-24)
 
 ### Bug Fixes
