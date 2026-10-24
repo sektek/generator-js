@@ -80,8 +80,6 @@ describe('@sektek/js:workspace', function () {
       'language',
       'license',
       'private',
-      'dependencies',
-      'devDependencies',
       'author',
       ...composed,
     ]);
