@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.6](https://github.com/sektek/generator-js/compare/v0.17.5...v0.17.6) (2026-11-21)
+
+### Bug Fixes
+
+* **generator-js:** bump @sektek/generator and @sektek/generator-base to the releases with PromptContext.generator ([#34](https://github.com/sektek/generator-js/issues/34)) ([3a80750](https://github.com/sektek/generator-js/commit/3a8075099b595a67bbd748e720ef29200007ad19))
+
 ## [0.17.5](https://github.com/sektek/generator-js/compare/v0.17.4...v0.17.5) (2026-10-24)
 
 ### Bug Fixes
